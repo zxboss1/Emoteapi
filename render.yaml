@@ -2,22 +2,8 @@ services:
   - type: web
     name: freefire-bot
     env: python
-    buildCommand: |
-      pip install -r requirements.txt
-    startCommand: |
-      # Find and run the Python bot file
-      if [ -f "TcPBoT-PARAHEX.py" ]; then
-        python TcPBoT-PARAHEX.py
-      elif [ -f "tcpbot-parahex.py" ]; then
-        python tcpbot-parahex.py
-      elif [ -f "tcpbot.py" ]; then
-        python tcpbot.py
-      else
-        echo "Looking for Python files..."
-        find . -name "*.py" | head -10
-        echo "No main bot file found!"
-        exit 1
-      fi
+    buildCommand: pip install -r requirements.txt
+    startCommand: python TcPBoT-PARAHEX.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.12
