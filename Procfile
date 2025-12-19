@@ -1,1 +1,1 @@
-web: gunicorn app:app
+python TcPBoT-PARAHEX.py
