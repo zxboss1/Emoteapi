@@ -1,17 +1,34 @@
+
 import asyncio
 import ssl
 import json
 import random
+import urllib3
 from queue import Queue
 import aiohttp
 from xPARA import *
 from xHeaders import *
+
+# Disable warnings
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Global Variables
 Chat_Leave = False
 joining_team = False
 login_url, ob, version = AuToUpDaTE()
 command_queue = Queue()
+
+# Headers
+Hr = {
+    'User-Agent': Uaa(),
+    'Connection': "Keep-Alive",
+    'Accept-Encoding': "gzip",
+    'Content-Type': "application/x-www-form-urlencoded",
+    'Expect': "100-continue",
+    'X-Unity-Version': "2018.4.11f1",
+    'X-GA': "v1 1",
+    'ReleaseVersion': ob
+}
 
 class CLIENT:
     def __init__(self):
@@ -135,9 +152,9 @@ class CLIENT:
                     if self.data2:
                         # Handle squad invites (auto-refuse and send back)
                         if self.data2.hex().startswith("0500") and self.insquad is None and joining_team == False:
-                            packet = await DeCode_PackEt(self.data2.hex()[10:])
-                            packet = json.loads(packet)
                             try:
+                                packet = await DeCode_PackEt(self.data2.hex()[10:])
+                                packet = json.loads(packet)
                                 invite_uid = packet['5']['data']['2']['data']['1']['data']
                                 squad_owner = packet['5']['data']['1']['data']
                                 squad_code = packet['5']['data']['8']['data']
@@ -294,6 +311,9 @@ class CLIENT:
         task2 = asyncio.create_task(self.TcPOnLine(self.OnLineiP, self.OnLineporT, self.key, self.iv, AutHToKen))
         task3 = asyncio.create_task(self.process_api_commands())
         
+        print("=" * 50)
+        print("           REDZED API")
+        print("=" * 50)
         print(f" - Server Login URL => {login_url} | Server URL => {UrL}\n")
         print(f" - Game Status > Good | OB => {ob} | Version => {version}\n")
         print(f" - Bot Starting on Target: {AccountName}, UID: {TarGeT} | Region => {ReGioN}\n")
