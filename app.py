@@ -1,11 +1,12 @@
+
 import asyncio
 import threading
+import os
 from flask import Flask, request, jsonify
 from bot_module import client, command_queue, start_bot
 
 app = Flask(__name__)
 
-# Routes
 @app.route('/')
 def home():
     return jsonify({
@@ -108,5 +109,4 @@ def run():
     app.run(host='0.0.0.0', port=port, debug=False)
 
 if __name__ == '__main__':
-    import os
     run()
