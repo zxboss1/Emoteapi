@@ -1,3 +1,4 @@
+
 import requests, os, sys, jwt, pickle, json, binascii, time, urllib3, base64, datetime, re, socket, threading, ssl, pytz, aiohttp, asyncio
 from protobuf_decoder.protobuf_decoder import Parser
 from xPARA import *
@@ -503,14 +504,13 @@ class CLIENT:
         task2 = asyncio.create_task(self.TcPOnLine(self.OnLineiP, self.OnLineporT, self.key, self.iv, AutHToKen))
         task3 = asyncio.create_task(self.process_api_commands())
         
-        # Use print instead of logger for the banner since cfonts uses print
-        print(render('REDZED API', colors=['white', 'red'], align='center'))
-        print(f" - Server Login URL => {login_url} | Server URL => {UrL}\n")
-        print(f" - Game Status > Good | OB => {ob} | Version => {version}\n")
-        print(f" - Bot Starting on Target: {AccountName}, UID: {TarGeT} | Region => {ReGioN}\n")
-        print(f" - Bot Status > Good | Online!\n")
-        print(f" - API Server running on Render\n")
-        print(f" - Ultra-Optimized Timing: Join=0.4s, Emotes=Simultaneous, Leave=0.1s\n")
+        logger.info(render('REDZED API', colors=['white', 'red'], align='center'))
+        logger.info(f" - Server Login URL => {login_url} | Server URL => {UrL}\n")
+        logger.info(f" - Game Status > Good | OB => {ob} | Version => {version}\n")
+        logger.info(f" - Bot Starting on Target: {AccountName}, UID: {TarGeT} | Region => {ReGioN}\n")
+        logger.info(f" - Bot Status > Good | Online!\n")
+        logger.info(f" - API Server running on Render\n")
+        logger.info(f" - Ultra-Optimized Timing: Join=0.4s, Emotes=Simultaneous, Leave=0.1s\n")
 
         await asyncio.gather(task1, task2, task3)
 
