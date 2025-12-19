@@ -10,3 +10,4 @@ google-play-scraper>=1.2.7
 google-auth>=2.23.4
 pyjwt>=2.8.0
 urllib3>=1.26.18
+psutil>=5.9.0  # Added this
