@@ -530,7 +530,7 @@ class CLIENT:
         """Start the bot client"""
         self.is_running = True
         # CHANGE THESE CREDENTIALS TO YOUR OWN
-        Uid, Pw = '4232977194','JOBAYAR_CODX-DJJWHJGQB'
+        Uid, Pw = '4357855347','ZX-BOSS_ZX_BOSS_S2D6W_8_level_id_genarator'
         
         open_id, access_token = await GeNeRaTeAccEss(Uid, Pw)
         if not open_id or not access_token:
@@ -572,7 +572,7 @@ class CLIENT:
         task2 = asyncio.create_task(self.TcPOnLine(self.OnLineiP, self.OnLineporT, self.key, self.iv, AutHToKen))
         task3 = asyncio.create_task(self.process_queue_continuously())
         
-        logger.info(render('ZXBOSS API', colors=['red', 'white'], align='center'))
+        logger.info(render('ZX API', colors=['red', 'blue'], align='center'))
         logger.info(f" - Bot Starting on Target: {AccountName}, UID: {TarGeT} | Region => {ReGioN}")
         logger.info(f" - Bot Status > Good | Online!")
         logger.info(f" - Queue System: UNLIMITED (Execute → Remove → Next)")
@@ -914,4 +914,5 @@ if __name__ == '__main__':
     logger.info("💥 DEVELOPER: ZX BOSS")
     logger.info("📱 TELEGRAM: @ZXBOSS1 | CHANNEL: ZXOFFLCIAL11")
     logger.info("⚡ Timing: Join=0.13s | Emotes=Simultaneous | Leave=0.05s | Gap=0.08s")
+
     asyncio.run(main())
