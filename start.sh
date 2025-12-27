@@ -1,2 +1,0 @@
-
-python TcPBoT-PARAHEX.py
