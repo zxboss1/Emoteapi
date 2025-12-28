@@ -919,3 +919,4 @@ if __name__ == '__main__':
     logger.info("⚡ Timing: Join=0.13s | Emotes=0.5s | Leave=0.05s | Gap=0.07s")
     logger.info("⚡ Total per Command: ~0.75 seconds")
     asyncio.run(main())
+
