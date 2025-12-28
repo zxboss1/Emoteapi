@@ -1,3 +1,4 @@
+
 import requests, os, sys, jwt, pickle, json, binascii, time, urllib3, base64, datetime, re, socket, threading, ssl, pytz, aiohttp, asyncio, random
 from protobuf_decoder.protobuf_decoder import Parser
 from xPARA import *
@@ -292,10 +293,10 @@ class CLIENT:
             
             logger.info(f"[QUEUE] Executing command: Team={team_code}, UIDs={len(uids)}")
             
-            # 1. JOIN TEAM - 0.13 seconds (UPDATED)
+            # 1. JOIN TEAM - 0.13 seconds
             join_packet = await GenJoinSquadsPacket(team_code, self.key, self.iv)
             await self.SEndPacKeT(self.whisper_writer, self.online_writer, 'OnLine', join_packet)
-            await asyncio.sleep(0.13)  # Join wait - UPDATED to 0.13s
+            await asyncio.sleep(0.13)  # Join wait
             
             # 2. EXECUTE ALL EMOTES SIMULTANEOUSLY
             success_emotes = 0
@@ -311,8 +312,10 @@ class CLIENT:
             # Send all emote packets at once
             await self.online_writer.drain()
             
-            # 3. LEAVE TEAM - 0.05 seconds
-            await asyncio.sleep(0.05)  # Leave wait
+            # 3. WAIT FOR EMOTES TO EXECUTE - 0.5 seconds (UPDATED)
+            await asyncio.sleep(0.5)  # Emote execution wait - UPDATED
+            
+            # 4. LEAVE TEAM - 0.05 seconds
             leave_packet = await ExiT(None, self.key, self.iv)
             await self.SEndPacKeT(self.whisper_writer, self.online_writer, 'OnLine', leave_packet)
             
@@ -327,14 +330,14 @@ class CLIENT:
                 'emote_id': emote_id,
                 'successful_emotes': success_emotes,
                 'status': 'success',
-                'total_time': '~0.18 seconds'
+                'total_time': '~0.68 seconds'
             })
             
             # Keep only last 10 commands
             if len(self.command_history) > 10:
                 self.command_history = self.command_history[-10:]
             
-            logger.info(f"[QUEUE] Command completed in ~0.18 seconds")
+            logger.info(f"[QUEUE] Command completed in ~0.68 seconds")
             logger.info(f"[QUEUE] Remaining in queue: {len(command_queue)} commands")
             
             return True, f"Executed {success_emotes} emotes successfully"
@@ -376,8 +379,8 @@ class CLIENT:
                             command_queue.popleft()  # Remove the executed command
                         currently_processing = False
                     
-                    # MINIMAL gap between commands - 0.08 seconds
-                    await asyncio.sleep(0.08)
+                    # Gap between commands - 0.07 seconds (UPDATED)
+                    await asyncio.sleep(0.07)  # UPDATED from 0.08s to 0.07s
                     
                 else:
                     # No commands to process
@@ -530,7 +533,7 @@ class CLIENT:
         """Start the bot client"""
         self.is_running = True
         # CHANGE THESE CREDENTIALS TO YOUR OWN
-        Uid, Pw = '4357855347','ZX-BOSS_ZX_BOSS_S2D6W_8_level_id_genarator'
+        Uid, Pw = '4232977194','JOBAYAR_CODX-DJJWHJGQB'
         
         open_id, access_token = await GeNeRaTeAccEss(Uid, Pw)
         if not open_id or not access_token:
@@ -572,16 +575,16 @@ class CLIENT:
         task2 = asyncio.create_task(self.TcPOnLine(self.OnLineiP, self.OnLineporT, self.key, self.iv, AutHToKen))
         task3 = asyncio.create_task(self.process_queue_continuously())
         
-        logger.info(render('ZX API', colors=['red', 'blue'], align='center'))
+        logger.info(render('ZXBOSS API', colors=['red', 'white'], align='center'))
         logger.info(f" - Bot Starting on Target: {AccountName}, UID: {TarGeT} | Region => {ReGioN}")
         logger.info(f" - Bot Status > Good | Online!")
         logger.info(f" - Queue System: UNLIMITED (Execute → Remove → Next)")
-        logger.info(f" - ⚡ ULTRA-FAST TIMING:")
+        logger.info(f" - ⚡ TIMING BREAKDOWN:")
         logger.info(f"      Join Team: 0.13 seconds")
-        logger.info(f"      Execute Emotes: Simultaneous")
+        logger.info(f"      Execute Emotes: 0.5 seconds (simultaneous + wait)")
         logger.info(f"      Leave Team: 0.05 seconds")
-        logger.info(f"      Gap Between Commands: 0.08 seconds")
-        logger.info(f"      Total per Command: ~0.26 seconds")
+        logger.info(f"      Gap Between Commands: 0.07 seconds")
+        logger.info(f"      Total per Command: ~0.75 seconds")
         logger.info(f" - DEVELOPER: ZX BOSS 💥 ⁉️ ☠️")
         logger.info(f" - TELEGRAM: @ZXBOSS1 | CHANNEL: ZXOFFLCIAL11")
 
@@ -701,7 +704,7 @@ def home():
             </div>
             
             <p style="margin-top: 30px; color: #888;">
-                ⚡ Timing: Join=0.13s | Emotes=Simultaneous | Leave=0.05s | Gap=0.08s
+                ⚡ Timing: Join=0.13s | Emotes=0.5s | Leave=0.05s | Gap=0.07s
             </p>
         </div>
     </body>
@@ -771,9 +774,9 @@ def join_and_emote():
             command_queue.append(command)
             queue_size = len(command_queue)
         
-        # Calculate estimated time (0.26 seconds per command in queue)
-        estimated_seconds = queue_size * 0.26
-        # Format as requested: "~[time]seconds"
+        # Calculate estimated time (0.75 seconds per command in queue)
+        estimated_seconds = queue_size * 0.75
+        # Format as requested: "~[time]seconds" (round to 1 decimal)
         estimated_time_str = f"~{estimated_seconds:.1f}seconds"
         
         # ALWAYS return "Command queued successfully" message
@@ -814,13 +817,13 @@ def status():
         },
         "timing": {
             "join_wait": "0.13 seconds",
-            "emote_execution": "SIMULTANEOUS",
+            "emote_execution": "0.5 seconds (simultaneous + wait)",
             "leave_wait": "0.05 seconds",
-            "gap_between_commands": "0.08 seconds",
-            "total_cycle_per_command": "~0.26 seconds"
+            "gap_between_commands": "0.07 seconds",
+            "total_cycle_per_command": "~0.75 seconds"
         },
         "performance": {
-            "estimated_commands_per_minute": "~230 commands"
+            "estimated_commands_per_minute": "~80 commands"
         },
         "developer": "ZX BOSS 💥 ⁉️ ☠️",
         "contact": "@ZXBOSS1",
@@ -887,7 +890,7 @@ def run_flask():
     logger.info(f"[Flask] Starting ZX BOSS API on port {port}")
     logger.info(f"[Flask] DEVELOPER: ZX BOSS 💥 ⁉️ ☠️")
     logger.info(f"[Flask] TELEGRAM: @ZXBOSS1 | CHANNEL: ZXOFFLCIAL11")
-    logger.info(f"[Flask] Timing: Join=0.13s | Emotes=Simultaneous | Leave=0.05s | Gap=0.08s")
+    logger.info(f"[Flask] Timing: Join=0.13s | Emotes=0.5s | Leave=0.05s | Gap=0.07s")
     app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
 
 async def main():
@@ -913,8 +916,6 @@ if __name__ == '__main__':
     logger.info("🔥 Starting ZX BOSS Free Fire Emote Bot...")
     logger.info("💥 DEVELOPER: ZX BOSS")
     logger.info("📱 TELEGRAM: @ZXBOSS1 | CHANNEL: ZXOFFLCIAL11")
-    logger.info("⚡ Timing: Join=0.13s | Emotes=Simultaneous | Leave=0.05s | Gap=0.08s")
-
+    logger.info("⚡ Timing: Join=0.13s | Emotes=0.5s | Leave=0.05s | Gap=0.07s")
+    logger.info("⚡ Total per Command: ~0.75 seconds")
     asyncio.run(main())
-
-
