@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# Flask App Setup
+# Flask App Setu
 app = Flask(__name__)
 
 # Global Variables
@@ -918,6 +918,7 @@ if __name__ == '__main__':
     logger.info("⚡ Timing: Join=0.13s | Emotes=0.5s | Leave=0.05s | Gap=0.07s")
     logger.info("⚡ Total per Command: ~0.75 seconds")
     asyncio.run(main())
+
 
 
 
