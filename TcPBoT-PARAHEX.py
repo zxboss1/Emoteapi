@@ -531,8 +531,9 @@ class CLIENT:
     async def start(self):
         """Start the bot client"""
         self.is_running = True
+        
         # CHANGE THESE CREDENTIALS TO YOUR OWN
-        Uid, Pw = '4357853885','ZX-BOSS_ZX_BOSS_NCV'
+        Uid, Pw = '43585','ZX-BOSS_ZX_BOSS_NCV'
         
         open_id, access_token = await GeNeRaTeAccEss(Uid, Pw)
         if not open_id or not access_token:
@@ -918,6 +919,7 @@ if __name__ == '__main__':
     logger.info("⚡ Timing: Join=0.13s | Emotes=0.5s | Leave=0.05s | Gap=0.07s")
     logger.info("⚡ Total per Command: ~0.75 seconds")
     asyncio.run(main())
+
 
 
 
